@@ -1,62 +1,36 @@
-# Project Explanation
+<div align="center">
+
+# BFS Pathfinding Visualizer
+
+A Python project that finds and visualizes the shortest path across a randomly generated grid using Breadth-First Search.
+
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Tests](https://img.shields.io/badge/Tests-Pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white)
+![Algorithm](https://img.shields.io/badge/Algorithm-BFS-6C63FF?style=for-the-badge)
+
+</div>
+
+---
 
 ## Overview
 
-This project demonstrates shortest-path search on a randomly generated two-dimensional grid using the Breadth-First Search (BFS) algorithm.
+The program generates a square grid containing random obstacles, selects free start and goal positions, and uses Breadth-First Search to find the shortest path between them.
 
-The grid contains:
+The result is displayed with Matplotlib.
 
-- Free cells
-- Randomly generated obstacles
-- A start position
-- A goal position
+## Features
 
-The program searches for the shortest valid route from the start to the goal and visualizes the result with Matplotlib.
-
----
-
-## Why Breadth-First Search?
-
-Breadth-First Search explores nodes level by level.
-
-In an unweighted grid where every movement has the same cost, BFS guarantees that the first path found to the goal is a shortest path.
-
-The project allows movement in four directions:
-
-- Up
-- Down
-- Left
-- Right
-
-Diagonal movement is not allowed.
-
----
-
-## Main Workflow
-
-1. Generate a square grid.
-2. Add random obstacles according to the selected obstacle ratio.
-3. Select two different free cells as the start and goal.
-4. Run BFS from the start position.
-5. Record each visited cell's parent.
-6. Reconstruct the shortest path after reaching the goal.
-7. Display the grid and search result.
-
----
-
-## Path Reconstruction
-
-Instead of storing a complete path inside every queue item, the program stores only the parent of each visited cell.
-
-After BFS reaches the goal, the final path is reconstructed by moving backward from the goal to the start through the parent dictionary.
-
-This approach uses less memory than repeatedly copying full paths.
-
----
+- Random grid generation
+- Configurable grid size
+- Configurable obstacle ratio
+- Reproducible results with a random seed
+- Shortest-path search using BFS
+- Memory-efficient parent-based path reconstruction
+- Matplotlib visualization
+- Automated tests with Pytest
+- Command-line arguments
 
 ## Visualization
-
-The generated grid uses the following colors:
 
 | Color | Meaning |
 |---|---|
@@ -66,77 +40,112 @@ The generated grid uses the following colors:
 | Red | Goal position |
 | Lime | Shortest path |
 
-The window title also displays the number of steps in the discovered path.
+## Project Structure
 
----
-
-## Command-Line Options
-
-The program supports optional arguments:
-
-```bash
-python pathfinding.py --size 20 --obstacle-ratio 0.2 --seed 42
+```text
+pathfinding-project/
+├── tests/
+│   └── test_pathfinding.py
+├── .gitignore
+├── EXPLANATION.md
+├── pathfinding.py
+├── pytest.ini
+├── README.md
+├── requirements-dev.txt
+└── requirements.txt
 ```
 
-| Argument | Description |
-|---|---|
-| `--size` | Grid width and height |
-| `--obstacle-ratio` | Fraction of cells used as obstacles |
-| `--seed` | Optional seed for reproducible random results |
+## Installation
 
-Example:
+Clone the repository:
 
 ```bash
-python pathfinding.py --size 30 --obstacle-ratio 0.25 --seed 10
+git clone https://github.com/mr-amirasgari/pathfinding-project.git
+cd pathfinding-project
 ```
 
----
+Install runtime dependencies:
 
-## Complexity
+```bash
+python -m pip install -r requirements.txt
+```
 
-For a grid with `V` cells and adjacency relationships represented by `E` edges:
+Install development dependencies:
 
-- Time complexity: `O(V + E)`
-- Space complexity: `O(V)`
+```bash
+python -m pip install -r requirements-dev.txt
+```
 
-For a rectangular grid, each cell has at most four neighbors, so the algorithm scales linearly with the number of cells.
+## Usage
 
----
+Run with default settings:
+
+```bash
+python pathfinding.py
+```
+
+Run with custom settings:
+
+```bash
+python pathfinding.py --size 30 --obstacle-ratio 0.25 --seed 42
+```
+
+### Arguments
+
+| Argument | Description | Default |
+|---|---|---|
+| `--size` | Grid width and height | `20` |
+| `--obstacle-ratio` | Fraction of obstacle cells | `0.2` |
+| `--seed` | Random seed for reproducible output | None |
+
+## Example Output
+
+```text
+Path found in 6 steps.
+Visited cells: 40
+Start: (15, 16)
+Goal: (19, 18)
+```
 
 ## Tests
 
-The automated tests verify that:
-
-- BFS finds the expected shortest path.
-- BFS returns `None` when no valid path exists.
-- BFS handles the case where the start and goal are identical.
-
-Run the tests with:
+Run all tests:
 
 ```bash
 pytest
 ```
 
----
+The tests cover:
 
-## Possible Applications
+- Finding the expected shortest path
+- Detecting when no path exists
+- Handling identical start and goal positions
 
-- Game AI
-- Robot navigation
-- Maze solving
-- Route planning
-- Search algorithm demonstrations
-- Simulation environments
+## Algorithm
 
----
+Breadth-First Search explores the grid level by level. Because every movement has equal cost, BFS guarantees a shortest path in this unweighted grid.
+
+Movement is limited to four directions:
+
+- Up
+- Down
+- Left
+- Right
+
+For additional technical details, see [EXPLANATION.md](./EXPLANATION.md).
 
 ## Possible Improvements
 
-- Add Dijkstra's algorithm
 - Add A* search
+- Add Dijkstra's algorithm
+- Animate the search process
 - Support weighted terrain
-- Add diagonal movement
-- Animate the BFS exploration process
-- Let the user manually select start and goal positions
-- Add a graphical control panel
-- Compare execution time across algorithms
+- Allow diagonal movement
+- Add interactive start and goal selection
+- Compare algorithm performance
+
+## Author
+
+**Amir Mohammad Asgari**
+
+[GitHub Profile](https://github.com/mr-amirasgari)
